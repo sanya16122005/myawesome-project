@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
- ... <!-- Скопируйте весь блок <head> из index.html -->
- <title>О нас - Название вашего сайта</title>
- <meta name="description" content="Узнайте больше о нашей компании и истории">
+  <meta charset="UTF-8">
+  <title>О нас - Название вашего сайта</title>
+  <meta name="description" content="Узнайте больше о нашей компании и истории">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
 </head>
 <body>
- <header>
- ... <!-- Скопируйте весь блок <header> из index.html -->
- </header>
- <main>
- <!-- Простые "хлебные крошки" -->
- <nav aria-label="Хлебные крошки">
- <a href="index.html">Главная</a> →
- <span>О нас</span>
- </nav>
- <h1>О нашей компании</h1>
- <section>
- <h2>Наша история</h2>
- <p>Текст о том, как все начиналось...</p>
- </section>
- <section>
- <h2>Наша команда</h2>
- <p>Текст о команде...</p>
- </section>
- </main>
- <footer>
- ... <!-- Скопируйте весь блок <footer> из index.html -->
- </footer>
+  <header class="site-header">
+    <a class="site-header__brand" href="/">Лого</a>
+    <nav class="site-nav" aria-label="Основная навигация">
+      <ul class="site-nav__list">
+        <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
+        <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="about.html">О нас</a></li>
+        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta" href="contacts.html">Связаться</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" aria-pressed="false">Тема</button>
+  </header>
+  <main>
+    <nav class="breadcrumbs" aria-label="Крошки">
+      <a class="breadcrumbs__link" href="index.html">Главная</a> /
+      <span class="breadcrumbs__link">О нас</span>
+    </nav>
+    <h1>О нашей компании</h1>
+    <section>
+      <h2>Наша история</h2>
+      <p>Текст о том, как все начиналось...</p>
+    </section>
+    <section>
+      <h2>Наша команда</h2>
+      <p>Текст о команде...</p>
+    </section>
+  </main>
 </body>
 </html>
