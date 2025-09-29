@@ -1,38 +1,38 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>О нас - Название вашего сайта</title>
-  <meta name="description" content="Узнайте больше о нашей компании и истории">
-  <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
-</head>
-<body>
-  <header class="site-header">
-    <a class="site-header__brand" href="/">Лого</a>
-    <nav class="site-nav" aria-label="Основная навигация">
-      <ul class="site-nav__list">
-        <li class="site-nav__item"><a class="site-nav__link" href="index.html">Главная</a></li>
-        <li class="site-nav__item"><a class="site-nav__link site-nav__link--active" href="about.html">О нас</a></li>
-        <li class="site-nav__item"><a class="site-nav__link site-nav__link--cta" href="contacts.html">Связаться</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="container">
-    <nav class="breadcrumbs" aria-label="Крошки">
-      <a class="breadcrumbs__link" href="index.html">Главная</a> /
-      <span class="breadcrumbs__link">О нас</span>
-    </nav>
-    <h1>О нашей компании</h1>
-    <section>
-      <h2>Наша история</h2>
-      <p>Текст о том, как все начиналось...</p>
-    </section>
-    <section>
-      <h2>Наша команда</h2>
-      <p>Текст о команде...</p>
-      <img class="img-responsive" src="img/cat-grey.png" alt="Серый кот">
-    </section>
-  </div>
-</body>
-</html>
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head> 
+    <link rel="stylesheet" href="about.css">
+    <title>О нас - Название вашего сайта</title> 
+    <meta name="description" content="Узнайте больше о нашей компании и истории"> 
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head> 
+<body> 
+    <header class="header">
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <a class="header__brand" href="/">Логотип или название сайта</a>
+        <nav class="nav" aria-label="Основная навигация">
+            <ul class="nav__list">
+                <li class="nav__item"><a class="nav__link" href="index.html">Главная</a></li>
+                <li class="nav__item"><a class="nav__link" href="about.html">О нас</a></li>
+                <li class="nav__item"><a class="nav__link" href="contacts.html">Контакты</a></li>
+                <li class="nav__item"><a class="nav__link nav__link--cta" href="#contacts">Связаться с нами</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>О нашей компании</h1> 
+        <section> 
+            <h2>Наша история</h2> 
+            <p>Текст о том, как все начиналось...</p> 
+        </section> 
+        <section> 
+            <h2>Наша команда</h2> 
+            <p>Текст о команде...</p> 
+        </section> 
+    </main> 
+    <script src="main.js"></script>
+</body> 
+</html> 

@@ -1,43 +1,86 @@
+// Получаем элементы со страницы
 const dlg = document.getElementById('contactDialog');
 const openBtn = document.getElementById('openDialog');
 const closeBtn = document.getElementById('closeDialog');
 const form = document.getElementById('contactForm');
-const successMsg = document.getElementById('successMsg');
+const toggle = document.getElementById("theme-toggle");
+
+// Загружаем сохранённую тему
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.setAttribute("data-theme", "dark");
+  toggle.checked = true; // выставляем ползунок в положение "вкл"
+}
+
+toggle.addEventListener("change", () => {
+  if (toggle.checked) {
+    document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    localStorage.setItem("theme", "light");
+  }
+});
+
+
+// Проверяем, что все элементы найдены
+if (!dlg || !openBtn || !closeBtn || !form) {
+    console.error('Не найдены необходимые элементы на странице:');
+    console.log('dlg:', dlg);
+    console.log('openBtn:', openBtn);
+    console.log('closeBtn:', closeBtn);
+    console.log('form:', form);
+    // Прекращаем выполнение скрипта
+    throw new Error('Не найдены элементы для работы модального окна');
+}
+
 let lastActive = null;
 
+// Остальной код без изменений...
 openBtn.addEventListener('click', () => {
-  lastActive = document.activeElement;
-  dlg.showModal();
-  dlg.querySelector('input,select,textarea,button')?.focus();
-  successMsg.style.display = 'none';
+    lastActive = document.activeElement; // Запоминаем активный элемент
+    dlg.showModal(); // Показываем модальное окно с подложкой
+
+    // Переносим фокус на первый интерактивный элемент внутри модалки
+    dlg.querySelector('input, select, textarea, button')?.focus();
 });
 
+// Обработчик закрытия модалки по кнопке
 closeBtn.addEventListener('click', () => dlg.close('cancel'));
 
-form?.addEventListener('submit', (e) => {
-  // 1) Сброс кастомных сообщений
-  [...form.elements].forEach(el => el.setCustomValidity?.(''));
-  // 2) Проверка встроенных ограничений
-  if (!form.checkValidity()) {
-    e.preventDefault();
-    const email = form.elements.email;
-    if (email?.validity.typeMismatch) {
-      email.setCustomValidity('Введите корректный e-mail, например name@example.com');
+// Обработчик отправки формы
+form.addEventListener('submit', (e) => {
+    // 1) Сброс кастомных сообщений об ошибках
+    [...form.elements].forEach(el => el.setCustomValidity?.(''));
+
+    // 2) Проверка встроенных ограничений (required, type, pattern)
+    if (!form.checkValidity()) {
+        e.preventDefault(); // Отменяем стандартное поведение (закрытие dialog)
+
+        // Пример кастомной ошибки для email
+        const emailField = form.elements.email;
+        if (emailField.validity.typeMismatch) {
+            emailField.setCustomValidity('Введите корректный e-mail, например name@example.com');
+        }
+
+        form.reportValidity(); // Показываем браузерные сообщения об ошибках
+
+        // Помечаем поля с ошибками для стилизации
+        [...form.elements].forEach(el => {
+            if (el.willValidate) {
+                el.toggleAttribute('aria-invalid', !el.checkValidity());
+            }
+        });
+        return; // Прерываем выполнение функции
     }
-    form.reportValidity();
-    [...form.elements].forEach(el => {
-      if (el.willValidate) el.toggleAttribute('aria-invalid', !el.checkValidity());
-    });
-    return;
-  }
-  // 3) Успешная «отправка» (без сервера)
-  e.preventDefault();
-  successMsg.style.display = 'block';
-  setTimeout(() => {
-    dlg.close('success');
-    form.reset();
-    successMsg.style.display = 'none';
-  }, 1500);
+
+    // 3) Если форма валидна, предотвращаем отправку (т.к. сервера нет) и закрываем модалку
+    e.preventDefault();
+    alert('Форма успешно отправлена! (Это заглушка, серверная часть не реализована)'); // Сообщение об успехе
+    dlg.close('success'); // Закрываем модальное окно
+    form.reset(); // Очищаем форму
 });
 
-dlg.addEventListener('close', () => { lastActive?.focus(); });
+// Событие, которое срабатывает при закрытии модалки (любым способом)
+dlg.addEventListener('close', () => {
+    lastActive?.focus(); // Возвращаем фокус на кнопку, которая открыла модалку
+});
